@@ -1,35 +1,12 @@
 <?php
-/* Copyright (C) 2013-2014	Olivier Geffroy		<jeff@jeffinfo.com>
- * Copyright (C) 2013-2014	Florian Henry		<florian.henry@open-concept.pro>
- * Copyright (C) 2013-2016	Alexandre Spangaro	<aspangaro@open-dsi.fr>
- * Copyright (C) 2014		Juanjo Menent		<jmenent@2byte.es>
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
- */
 
-/**
- * \file		htdocs/accountancy/expensereport/index.php
- * \ingroup		Accountancy (Double entries)
- * \brief		Home expense report ventilation
- */
 
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/accounting.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/expensereport/class/expensereport.class.php';
 
-// Load translation files required by the page
+
 $langs->loadLangs(array("compta", "bills", "other", "main", "accountancy"));
 
 // Security check
@@ -59,14 +36,9 @@ $search_date_start = dol_mktime(0, 0, 0, $month_start, 1, $year_start);
 $search_date_end = dol_get_last_day($year_end, $month_end);
 $year_current = $year_start;
 
-// Validate History
+
 $action = GETPOST('action', 'aZ09');
 
-
-
-/*
- * Actions
- */
 
 if ($action == 'clean' || $action == 'validatehistory')
 {
@@ -90,7 +62,7 @@ if ($action == 'clean' || $action == 'validatehistory')
 	} else {
 		$db->commit();
 	}
-	// End clean database
+	
 }
 
 if ($action == 'validatehistory') {
@@ -127,10 +99,6 @@ if ($action == 'validatehistory') {
 }
 
 
-/*
- * View
- */
-
 llxHeader('', $langs->trans("ExpenseReportsVentilation"));
 
 $textprevyear = '<a href="'.$_SERVER["PHP_SELF"].'?year='.($year_current - 1).'">'.img_previous().'</a>';
@@ -149,7 +117,7 @@ $buttonbind = '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?year='.$year_
 
 
 print_barre_liste($langs->trans("OverviewOfAmountOfLinesNotBound"), '', '', '', '', '', '', -1, '', '', 0, $buttonbind, '', 0, 1, 1);
-//print load_fiche_titre($langs->trans("OverviewOfAmountOfLinesNotBound"), $buttonbind, '');
+
 
 print '<div class="div-table-responsive-no-min">';
 print '<table class="noborder centpercent">';
@@ -288,7 +256,7 @@ print '</div>';
 
 
 
-if ($conf->global->MAIN_FEATURES_LEVEL > 0) // This part of code looks strange. Why showing a report where results depends on next step (so not yet available) ?
+if ($conf->global->MAIN_FEATURES_LEVEL > 0) so not yet available) 
 {
     print '<br>';
     print '<br>';
@@ -336,12 +304,12 @@ if ($conf->global->MAIN_FEATURES_LEVEL > 0) // This part of code looks strange. 
 
     	$db->free($resql);
     } else {
-    	print $db->lasterror(); // Show last sql error
+    	print $db->lasterror(); 
     }
     print "</table>\n";
     print '</div>';
 }
 
-// End of page
+
 llxFooter();
 $db->close();
