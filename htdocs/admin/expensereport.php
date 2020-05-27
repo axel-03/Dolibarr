@@ -37,7 +37,9 @@ require_once DOL_DOCUMENT_ROOT.'/expensereport/class/expensereport.class.php';
 // Load translation files required by the page
 $langs->loadLangs(array('admin', 'errors', 'trips', 'other'));
 
-if (! $user->admin) accessforbidden();
+if (! $user->admin){ 
+	accessforbidden();
+}
 
 $action = GETPOST('action', 'alpha');
 $value = GETPOST('value', 'alpha');
