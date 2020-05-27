@@ -58,8 +58,9 @@ if ($action == 'updateMask')
 {
 	$maskconst=GETPOST('maskconst', 'alpha');
 	$maskvalue=GETPOST('maskvalue', 'alpha');
-	if ($maskconst) $res = dolibarr_set_const($db, $maskconst, $maskvalue, 'chaine', 0, '', $conf->entity);
-
+	if ($maskconst){
+		$res = dolibarr_set_const($db, $maskconst, $maskvalue, 'chaine', 0, '', $conf->entity);
+	}
 	if (! $res > 0) $error++;
 
  	if (! $error)
