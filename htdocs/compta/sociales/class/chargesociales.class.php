@@ -248,7 +248,6 @@ class ChargeSociales extends CommonObject
         if ($resql) {
             $this->id = $this->db->last_insert_id(MAIN_DB_PREFIX."chargesociales");
 
-            //dol_syslog("ChargesSociales::create this->id=".$this->id);
 			$result = $this->call_trigger('SOCIALCONTRIBUTION_CREATE', $user);
 			if ($result < 0) $error++;
 
