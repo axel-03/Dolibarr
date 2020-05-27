@@ -117,7 +117,7 @@ $nbofyear = ($year_end - $start_year) + 1;
 $date_start_previous = dol_time_plus_duree($date_start, -1, 'y');
 $date_end_previous = dol_time_plus_duree($date_end, -1, 'y');
 
-//var_dump($date_start." ".$date_end." ".$date_start_previous." ".$date_end_previous." ".$nbofyear);
+
 
 
 if($cat_id == 0){
@@ -180,7 +180,7 @@ if ($modecompta=="CREANCES-DETTES")
 	if (! empty($conf->global->FACTURE_DEPOSITS_ARE_JUST_PAYMENTS)) $description.= $langs->trans("DepositsAreNotIncluded");
 	else  $description.= $langs->trans("DepositsAreIncluded");
 	$builddate=dol_now();
-	//$exportlink=$langs->trans("NotYetAvailable");
+	
 }
 elseif ($modecompta=="RECETTES-DEPENSES") {
 	$name=$langs->trans("AnnualByAccountInputOutputMode");
@@ -188,26 +188,23 @@ elseif ($modecompta=="RECETTES-DEPENSES") {
 	$calcmode.='<br>('.$langs->trans("SeeReportInDueDebtMode", '<a href="'.$_SERVER["PHP_SELF"].'?year='.$year.(GETPOST("month")>0?'&month='.GETPOST("month"):'').'&modecompta=CREANCES-DETTES">', '</a>').')';
 	if (! empty($conf->accounting->enabled)) $calcmode.='<br>('.$langs->trans("SeeReportInBookkeepingMode", '<a href="'.$_SERVER["PHP_SELF"].'?year='.$year.'&modecompta=BOOKKEEPING">', '</a>').')';
 	$period=$form->selectDate($date_start, 'date_start', 0, 0, 0, '', 1, 0).' - '.$form->selectDate($date_end, 'date_end', 0, 0, 0, '', 1, 0);
-	//$periodlink='<a href="'.$_SERVER["PHP_SELF"].'?year='.($year-1).'&modecompta='.$modecompta.'">'.img_previous().'</a> <a href="'.$_SERVER["PHP_SELF"].'?year='.($year+1).'&modecompta='.$modecompta.'">'.img_next().'</a>';
+	
 	$description=$langs->trans("RulesResultInOut");
 	$builddate=dol_now();
-	//$exportlink=$langs->trans("NotYetAvailable");
+	
 }
 elseif ($modecompta=="BOOKKEEPING")
 {
 	$name = $langs->trans("ReportInOut").', '.$langs->trans("ByPersonalizedAccountGroups");
 	$calcmode=$langs->trans("CalcModeBookkeeping");
-	//$calcmode.='<br>('.$langs->trans("SeeReportInDueDebtMode",'<a href="'.$_SERVER["PHP_SELF"].'?year_start='.$year_start.'&modecompta=CREANCES-DETTES">','</a>').')';
-	//$calcmode.='<br>('.$langs->trans("SeeReportInInputOutputMode",'<a href="'.$_SERVER["PHP_SELF"].'?year_start='.$year_start.'&modecompta=RECETTES-DEPENSES">','</a>').')';
-	$period=$form->selectDate($date_start, 'date_start', 0, 0, 0, '', 1, 0).' - '.$form->selectDate($date_end, 'date_end', 0, 0, 0, '', 1, 0);
+		$period=$form->selectDate($date_start, 'date_start', 0, 0, 0, '', 1, 0).' - '.$form->selectDate($date_end, 'date_end', 0, 0, 0, '', 1, 0);
 	$arraylist=array('no'=>$langs->trans("No"), 'yes'=>$langs->trans("AccountWithNonZeroValues"), 'all'=>$langs->trans("All"));
 	$period.=' &nbsp; &nbsp; '.$langs->trans("DetailByAccount").' '. $form->selectarray('showaccountdetail', $arraylist, $showaccountdetail, 0);
 	$periodlink = $textprevyear . $textnextyear ;
 	$exportlink = '';
 	$description=$langs->trans("RulesResultBookkeepingPersonalized").
 	$description.=' ('.$langs->trans("SeePageForSetup", DOL_URL_ROOT.'/accountancy/admin/categories_list.php?search_country_id='.$mysoc->country_id.'&mainmenu=accountancy&leftmenu=accountancy_admin', $langs->transnoentitiesnoconv("Accountancy").' / '.$langs->transnoentitiesnoconv("Setup").' / '.$langs->transnoentitiesnoconv("AccountingCategory")).')';
-	//if (! empty($conf->global->FACTURE_DEPOSITS_ARE_JUST_PAYMENTS)) $description.= $langs->trans("DepositsAreNotIncluded");
-	//else  $description.= $langs->trans("DepositsAreIncluded");
+	
 	$builddate=dol_now();
 }
 
@@ -246,43 +243,18 @@ print	'</tr>';
 
 if ($modecompta == 'CREANCES-DETTES')
 {
-	//if (! empty($date_start) && ! empty($date_end))
-	//	$sql.= " AND f.datef >= '".$db->idate($date_start)."' AND f.datef <= '".$db->idate($date_end)."'";
+	
 }
 elseif ($modecompta=="RECETTES-DEPENSES")
 {
-	//if (! empty($date_start) && ! empty($date_end))
-	//	$sql.= " AND p.datep >= '".$db->idate($date_start)."' AND p.datep <= '".$db->idate($date_end)."'";
+	
 }
 elseif ($modecompta=="BOOKKEEPING")
 {
 	// Get array of all report groups that are active
 	$cats = $AccCat->getCats();		// WARNING: Computed groups must be after group they include
 
-	/*
-	$sql = 'SELECT DISTINCT t.numero_compte as nb FROM '.MAIN_DB_PREFIX.'accounting_bookkeeping as t, '.MAIN_DB_PREFIX.'accounting_account as aa';
-	$sql.= " WHERE t.numero_compte = aa.account_number AND aa.fk_accounting_category = 0";
-	if (! empty($date_start) && ! empty($date_end))
-		$sql.= " AND t.doc_date >= '".$db->idate($date_start)."' AND t.doc_date <= '".$db->idate($date_end)."'";
-	if (! empty($month)) {
-		$sql .= " AND MONTH(t.doc_date) = " . $month;
-	}
-	$resql = $db->query($sql);
-	if ($resql)
-	{
-		$num_rows = $db->num_rows($resql);
-		if ($num_rows) {
-
-			print '<div class="warning">Warning: There is '.$num_rows.' accounts in your ledger table that are not set into a reporting group</div>';
-			$i = 0;
-			//while ($i < $num) {
-			//	$obj = $db->fetch_object($resql);
-			//	$i++;
-			//}
-		}
-	}
-	else dol_print_error($db);
-	*/
+	
 
 	$j=1;
 	$sommes = array();
@@ -316,10 +288,9 @@ elseif ($modecompta=="BOOKKEEPING")
 
 				$result = strtr($formula, $vars);
 
-				//var_dump($result);
-				//$r = $AccCat->calculate($result);
+				
 				$r = dol_eval($result, 1);
-				//var_dump($r);
+				
 
 				print '<td class="liste_total right">' . price($r) . '</td>';
 
@@ -336,7 +307,7 @@ elseif ($modecompta=="BOOKKEEPING")
 
 				$result = strtr($formula, $vars);
 
-				//$r = $AccCat->calculate($result);
+				
 				$r = dol_eval($result, 1);
 
 				print '<td class="liste_total right">' . price($r) . '</td>';
@@ -350,7 +321,7 @@ elseif ($modecompta=="BOOKKEEPING")
 						}
 						$result = strtr($formula, $vars);
 
-						//$r = $AccCat->calculate($result);
+						
 						$r = dol_eval($result, 1);
 
 						print '<td class="liste_total right">' . price($r) . '</td>';
@@ -364,7 +335,7 @@ elseif ($modecompta=="BOOKKEEPING")
 						}
 						$result = strtr($formula, $vars);
 
-						//$r = $AccCat->calculate($result);
+						
 						$r = dol_eval($result, 1);
 
 						print '<td class="liste_total right">' . price($r) . '</td>';
@@ -374,7 +345,7 @@ elseif ($modecompta=="BOOKKEEPING")
 
 				print "</tr>\n";
 
-				//var_dump($sommes);
+				
 			} else            // normal category
 			{
 				$code = $cat['code'];    // Category code we process
@@ -420,8 +391,7 @@ elseif ($modecompta=="BOOKKEEPING")
 				foreach ($cpts as $i => $cpt)    // Loop on each account.
 				{
 					// We make 1 loop for each account because we may want detail per account.
-					// @todo Optimize to ask a 'group by' account and a filter with account in (..., ...) in request
-
+					
 					// Each month
 					$resultN = 0;
 					foreach ($months as $k => $v) {
@@ -430,7 +400,7 @@ elseif ($modecompta=="BOOKKEEPING")
 						if (($k + 1) < $start_month)
 							$yeartoprocess++;
 
-						//var_dump($monthtoprocess.'_'.$yeartoprocess);
+						
 						$return = $AccCat->getSumDebitCredit($cpt['account_number'], $date_start, $date_end, $cat['dc'] ? $cat['dc'] : 0, 'nofilter', $monthtoprocess, $yeartoprocess);
 						if ($return < 0) {
 							setEventMessages(null, $AccCat->errors, 'errors');
