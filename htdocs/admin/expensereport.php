@@ -175,8 +175,9 @@ elseif ($action == 'setoptions')
 	$draft= GETPOST('EXPENSEREPORT_DRAFT_WATERMARK', 'alpha');
 	$res2 = dolibarr_set_const($db, "EXPENSEREPORT_DRAFT_WATERMARK", trim($draft), 'chaine', 0, '', $conf->entity);
 
-	if (! $res1 > 0 || ! $res2 > 0) $error++;
-
+	if (! $res1 > 0 || ! $res2 > 0){
+		$error++;
+	}
  	if (! $error)
     {
         $db->commit();
