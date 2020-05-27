@@ -28,7 +28,9 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 $langs->loadLangs(array("admin", "ftp"));
 
 // Security check
-if (!$user->admin) accessforbidden();
+if (!$user->admin){ 
+	accessforbidden();
+}
 
 $def = array();
 $lastftpentry=0;
