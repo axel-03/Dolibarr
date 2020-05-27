@@ -249,7 +249,9 @@ class ChargeSociales extends CommonObject
             $this->id = $this->db->last_insert_id(MAIN_DB_PREFIX."chargesociales");
 
 			$result = $this->call_trigger('SOCIALCONTRIBUTION_CREATE', $user);
-			if ($result < 0) $error++;
+			if ($result < 0){
+				$error++;
+			}
 
 			if (empty($error)) {
 				$this->db->commit();
