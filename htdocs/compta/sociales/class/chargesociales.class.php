@@ -140,9 +140,12 @@ class ChargeSociales extends CommonObject
         $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_chargesociales as c ON cs.fk_type = c.id";
         $sql.= ' LEFT JOIN '.MAIN_DB_PREFIX.'c_paiement as p ON cs.fk_mode_reglement = p.id';
         $sql.= ' WHERE cs.entity IN ('.getEntity('tax').')';
-        if ($ref) $sql.= " AND cs.rowid = ".$ref;
-        else $sql.= " AND cs.rowid = ".$id;
-
+        if ($ref){
+		$sql.= " AND cs.rowid = ".$ref;
+	}
+	else{
+		$sql.= " AND cs.rowid = ".$id;
+	}
         dol_syslog(get_class($this)."::fetch", LOG_DEBUG);
         $resql=$this->db->query($sql);
         if ($resql)
