@@ -73,7 +73,7 @@ class pdf_standard extends CommonStickerGenerator
 		$imgscaleheight=(empty($forceimgscalewidth)?0.5:$forceimgscalewidth);	// Scale of image for height (1=Full height of sticker)
 
 		// We are in a new page, then we must add a page
-		if (($this->_COUNTX ==0) && ($this->_COUNTY==0) and (!$this->_First==1)) {
+		if (($this->_COUNTX ==0) && ($this->_COUNTY==0) && (!$this->_First==1)) {
 			$pdf->AddPage();
 		}
 		$this->_First=0;
@@ -105,7 +105,9 @@ class pdf_standard extends CommonStickerGenerator
 		{
 			$file=get_exdir(0, 0, 0, 0, $member, 'member').'photos/'.$photo;
 			$photo=$dir.'/'.$file;
-			if (! is_readable($photo)) $photo='';
+			if (! is_readable($photo)){
+				$photo='';
+			}
 		}
 
 		// Define background image
@@ -119,7 +121,6 @@ class pdf_standard extends CommonStickerGenerator
 		if ($this->code == "CARD")
 		{
 			$this->Tformat=$this->_Avery_Labels["CARD"];
-			//$this->_Pointille($pdf,$_PosX,$_PosY,$_PosX+$this->_Width,$_PosY+$this->_Height,0.3,25);
 			$this->_Croix($pdf, $_PosX, $_PosY, $_PosX+$this->_Width, $_PosY+$this->_Height, 0.1, 10);
 		}
 
