@@ -116,8 +116,6 @@ function getValidOnlinePaymentMethods($paymentmethod = '')
 		$langs->load("stripe");
 		$validpaymentmethod['stripe']='valid';
 	}
-	// TODO Add trigger
-
 
 	return $validpaymentmethod;
 }
@@ -179,7 +177,6 @@ function getOnlinePaymentUrl($mode, $type, $ref = '', $amount = '9.99', $freetag
 			if (empty($conf->global->PAYMENT_SECURITY_TOKEN_UNIQUE)) $out.='&securekey='.$conf->global->PAYMENT_SECURITY_TOKEN;
 			else $out.='&securekey='.dol_hash($conf->global->PAYMENT_SECURITY_TOKEN, 2);
 		}
-		//if ($mode) $out.='&noidempotency=1';
 	}
 	elseif ($type == 'order')
 	{
