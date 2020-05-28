@@ -200,18 +200,11 @@ class CommandeFournisseurDispatch extends CommonObject
 
 			if (! $notrigger)
 			{
-	            // Uncomment this and change MYOBJECT to your own tag if you
-	            // want this action calls a trigger.
-
-	            //// Call triggers
-	            //$result=$this->call_trigger('MYOBJECT_CREATE',$user);
-	            //if ($result < 0) { $error++; //Do also what you must do to rollback action if trigger fail}
-	            //// End call triggers
+	            
 			}
         }
 
 		// Actions on extra fields (by external module or standard code)
-		// TODO le hook fait double emploi avec le trigger !!
 		$hookmanager->initHooks(array('commandefournisseurdispatchdao'));
 		$parameters=array('id'=>$this->id);
 		$reshook=$hookmanager->executeHooks('insertExtraFields', $parameters, $this, $action);    // Note that $action and $object may have been modified by some hooks
@@ -430,13 +423,6 @@ class CommandeFournisseurDispatch extends CommonObject
 		{
 			if (! $notrigger)
 			{
-				// Uncomment this and change MYOBJECT to your own tag if you
-		        // want this action calls a trigger.
-
-	            //// Call triggers
-	            //$result=$this->call_trigger('MYOBJECT_DELETE',$user);
-	            //if ($result < 0) { $error++; //Do also what you must do to rollback action if trigger fail}
-	            //// End call triggers
 			}
 		}
 
