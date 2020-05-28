@@ -364,7 +364,7 @@ function callSetExpressCheckout($paymentAmount, $currencyCodeType, $paymentType,
     }
 
     $paypalprefix = 'PAYMENTREQUEST_0_';
-    //$paypalprefix = '';
+    
 	if (!empty($paypalprefix) && $paymentType == 'Sole') $paymentType = 'Sale';
 
 	$nvpstr = $nvpstr."&AMT=".urlencode($paymentAmount); // Total for all elements
@@ -543,37 +543,7 @@ function confirmPayment($token, $paymentType, $currencyCodeType, $payerID, $ipad
  *  cvv2:               Card Verification Value
  *	@return		array	The NVP Collection object of the DoDirectPayment Call Response.
  */
-/*
-function DirectPayment($paymentType, $paymentAmount, $creditCardType, $creditCardNumber, $expDate, $cvv2, $firstName, $lastName, $street, $city, $state, $zip, $countryCode, $currencyCode, $tag)
-{
-    //declaring of global variables
-    global $conf, $langs;
-    global $API_Endpoint, $API_Url, $API_version, $USE_PROXY, $PROXY_HOST, $PROXY_PORT;
-    global $PAYPAL_API_USER, $PAYPAL_API_PASSWORD, $PAYPAL_API_SIGNATURE;
 
-    //Construct the parameter string that describes DoDirectPayment
-    $nvpstr = '';
-    $nvpstr = $nvpstr . "&AMT=" . urlencode($paymentAmount);              // deprecated by paypal
-    $nvpstr = $nvpstr . "&CURRENCYCODE=" . urlencode($currencyCode);
-    $nvpstr = $nvpstr . "&PAYMENTACTION=" . urlencode($paymentType);      // deprecated by paypal
-    $nvpstr = $nvpstr . "&CREDITCARDTYPE=" . urlencode($creditCardType);
-    $nvpstr = $nvpstr . "&ACCT=" . urlencode($creditCardNumber);
-    $nvpstr = $nvpstr . "&EXPDATE=" . urlencode($expDate);
-    $nvpstr = $nvpstr . "&CVV2=" . urlencode($cvv2);
-    $nvpstr = $nvpstr . "&FIRSTNAME=" . urlencode($firstName);
-    $nvpstr = $nvpstr . "&LASTNAME=" . urlencode($lastName);
-    $nvpstr = $nvpstr . "&STREET=" . urlencode($street);
-    $nvpstr = $nvpstr . "&CITY=" . urlencode($city);
-    $nvpstr = $nvpstr . "&STATE=" . urlencode($state);
-    $nvpstr = $nvpstr . "&COUNTRYCODE=" . urlencode($countryCode);
-    $nvpstr = $nvpstr . "&IPADDRESS=" . $_SERVER['REMOTE_ADDR'];
-    $nvpstr = $nvpstr . "&INVNUM=" . urlencode($tag);
-
-    $resArray=hash_call("DoDirectPayment", $nvpstr);
-
-    return $resArray;
-}
-*/
 
 
 /**
@@ -590,7 +560,7 @@ function hash_call($methodName, $nvpStr)
     global $API_Endpoint, $API_Url, $API_version, $USE_PROXY, $PROXY_HOST, $PROXY_PORT, $PROXY_USER, $PROXY_PASS;
     global $PAYPAL_API_USER, $PAYPAL_API_PASSWORD, $PAYPAL_API_SIGNATURE;
 
-    // TODO problem with triggers
+   
     $API_version = "98.0";
 	if (!empty($conf->global->PAYPAL_API_SANDBOX) || GETPOST('forcesandbox', 'alpha'))		// We can force sand box with param 'forcesandbox'
 	{
@@ -612,17 +582,14 @@ function hash_call($methodName, $nvpStr)
 	if (!empty($conf->global->PAYPAL_API_SIGNATURE)) $PAYPAL_API_SIGNATURE = $conf->global->PAYPAL_API_SIGNATURE;
 	$PAYPAL_API_SANDBOX = "";
 	if (!empty($conf->global->PAYPAL_API_SANDBOX)) $PAYPAL_API_SANDBOX = $conf->global->PAYPAL_API_SANDBOX;
-	// TODO END problem with triggers
+	
 
     dol_syslog("Paypal API endpoint ".$API_Endpoint);
 
     //setting the curl parameters.
     $ch = curl_init();
 
-    /*print $API_Endpoint."-".$API_version."-".$PAYPAL_API_USER."-".$PAYPAL_API_PASSWORD."-".$PAYPAL_API_SIGNATURE."<br>";
-     print $USE_PROXY."-".$gv_ApiErrorURL."<br>";
-     print $nvpStr;
-     exit;*/
+    
     curl_setopt($ch, CURLOPT_URL, $API_Endpoint);
     curl_setopt($ch, CURLOPT_VERBOSE, 1);
     // TLSv1 by default or change to TLSv1.2 in module configuration
