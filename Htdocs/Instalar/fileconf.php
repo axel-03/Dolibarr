@@ -44,17 +44,28 @@ dolibarr_install_syslog("- fileconf: entering fileconf.php page");
 // install.forced.php into directory htdocs/install (This is the case with some wizard
 // installer like DoliWamp, DoliMamp or DoliBuntu).
 // We first init "forced values" to nothing.
-if (! isset($force_install_noedit))			    $force_install_noedit='';	// 1=To block vars specific to distrib, 2 to block all technical parameters
-if (! isset($force_install_type))				$force_install_type='';
-if (! isset($force_install_dbserver))			$force_install_dbserver='';
-if (! isset($force_install_port))				$force_install_port='';
-if (! isset($force_install_database))			$force_install_database='';
-if (! isset($force_install_prefix))			    $force_install_prefix='';
-if (! isset($force_install_createdatabase))	    $force_install_createdatabase='';
-if (! isset($force_install_databaselogin))		$force_install_databaselogin='';
-if (! isset($force_install_databasepass))		$force_install_databasepass='';
-if (! isset($force_install_databaserootlogin))	$force_install_databaserootlogin='';
-if (! isset($force_install_databaserootpass))	$force_install_databaserootpass='';
+if (! isset($force_install_noedit)){
+	$force_install_noedit='';} 	// 1=To block vars specific to distrib, 2 to block all technical parameters
+if (! isset($force_install_type)){
+	$force_install_type='';}
+if (! isset($force_install_dbserver)){
+	$force_install_dbserver='';}
+if (! isset($force_install_port)){
+	$force_install_port='';}
+if (! isset($force_install_database)){
+	$force_install_database='';}
+if (! isset($force_install_prefix)){
+	$force_install_prefix='';}
+if (! isset($force_install_createdatabase)){
+	$force_install_createdatabase='';}
+if (! isset($force_install_databaselogin)){
+	$force_install_databaselogin='';}
+if (! isset($force_install_databasepass)){
+	$force_install_databasepass='';}
+if (! isset($force_install_databaserootlogin)){
+	$force_install_databaserootlogin='';}
+if (! isset($force_install_databaserootpass)){
+	$force_install_databaserootpass='';}
 // Now we load forced values from install.forced.php file.
 $useforcedwizard=false;
 $forcedfile="./install.forced.php";
@@ -88,7 +99,6 @@ if (! empty($force_install_message))
 {
     print '<div><br>'.$langs->trans($force_install_message).'</div>';
 
-    /*print '<script type="text/javascript">';
     print '	jQuery(document).ready(function() {
 				jQuery("#linktoshowtechnicalparam").click(function() {
 					jQuery(".hidewhenedit").hide();
@@ -284,8 +294,10 @@ if (!empty($force_install_noedit)) {
                     $class='DoliDB'.ucfirst($type);
                     include_once $dir."/".$file;
 
-                    if ($type == 'sqlite') continue;    // We hide sqlite because support can't be complete until sqlite does not manage foreign key creation after table creation (ALTER TABLE child ADD CONSTRAINT not supported)
-                    if ($type == 'sqlite3') continue;   // We hide sqlite3 because support can't be complete until sqlite does not manage foreign key creation after table creation (ALTER TABLE child ADD CONSTRAINT not supported)
+                    if ($type == 'sqlite') continue;{
+		    } // We hide sqlite because support can't be complete until sqlite does not manage foreign key creation after table creation (ALTER TABLE child ADD CONSTRAINT not supported)
+                    if ($type == 'sqlite3') continue;{
+		    } // We hide sqlite3 because support can't be complete until sqlite does not manage foreign key creation after table creation (ALTER TABLE child ADD CONSTRAINT not supported)
 
 		            // Version min of database
                     $versionbasemin=explode('.', $class::VERSIONMIN);
