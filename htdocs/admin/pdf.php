@@ -35,8 +35,9 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/pdf.lib.php';
 // Load translation files required by the page
 $langs->loadLangs(array('admin', 'languages', 'other', 'companies', 'products', 'members'));
 
-if (!$user->admin) accessforbidden();
-
+if (!$user->admin){
+	accessforbidden();
+}
 $action = GETPOST('action', 'alpha');
 $cancel = GETPOST('cancel', 'alpha');
 
@@ -138,8 +139,9 @@ print '<table summary="more" class="noborder centpercent">';
 print '<tr class="liste_titre"><td>'.$langs->trans("Parameter").'</td><td width="200px">'.$langs->trans("Value").'</td></tr>';
 
 $selected = $conf->global->MAIN_PDF_FORMAT;
-if (empty($selected)) $selected = dol_getDefaultFormat();
-
+if (empty($selected)){
+	$selected = dol_getDefaultFormat();
+}
 // Show pdf format
 
 print '<tr class="oddeven"><td>'.$langs->trans("DictionaryPaperFormat").'</td><td>';
@@ -184,7 +186,9 @@ for ($i = 1; $i <= 6; $i++)
 	if (!$noCountryCode)
 	{
 		$pid = $langs->transcountry("ProfId".$i, $mysoc->country_code);
-		if ($pid == '-') $pid = false;
+		if ($pid == '-'){
+			$pid = false;
+		}
 	}
 	else
 	{
