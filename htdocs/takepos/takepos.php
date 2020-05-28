@@ -24,7 +24,7 @@
 
 //if (! defined('NOREQUIREUSER'))	define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
 //if (! defined('NOREQUIREDB'))		define('NOREQUIREDB','1');		// Not disabled cause need to load personalized language
-//if (! defined('NOREQUIRESOC'))		define('NOREQUIRESOC','1');
+
 //if (! defined('NOREQUIRETRAN'))		define('NOREQUIRETRAN','1');
 if (!defined('NOCSRFCHECK'))		define('NOCSRFCHECK', '1');
 if (!defined('NOTOKENRENEWAL'))	define('NOTOKENRENEWAL', '1');
@@ -71,12 +71,7 @@ if ($conf->browser->layout == 'phone')
 $MAXCATEG = (empty($conf->global->TAKEPOS_NB_MAXCATEG) ? $maxcategbydefaultforthisdevice : $conf->global->TAKEPOS_NB_MAXCATEG);
 $MAXPRODUCT = (empty($conf->global->TAKEPOS_NB_MAXPRODUCT) ? $maxproductbydefaultforthisdevice : $conf->global->TAKEPOS_NB_MAXPRODUCT);
 
-/*
-$constforcompanyid = 'CASHDESK_ID_THIRDPARTY'.$_SESSION["takeposterminal"];
-$soc = new Societe($db);
-if ($invoice->socid > 0) $soc->fetch($invoice->socid);
-else $soc->fetch($conf->global->$constforcompanyid);
-*/
+
 
 // Security check
 $result = restrictedArea($user, 'takepos', 0, '');
@@ -105,7 +100,7 @@ $categories = $categorie->get_full_arbo('product', (($conf->global->TAKEPOS_ROOT
 
 
 // Search root category to know its level
-//$conf->global->TAKEPOS_ROOT_CATEGORY_ID=0;
+
 $levelofrootcategory = 0;
 if ($conf->global->TAKEPOS_ROOT_CATEGORY_ID > 0)
 {
@@ -678,8 +673,7 @@ if ($resql) {
         if ($paycode == 'CHQ') $paycode = 'CHEQUE';
 
 		$constantforkey = "CASHDESK_ID_BANKACCOUNT_".$paycode.$_SESSION["takeposterminal"];
-		//var_dump($constantforkey.' '.$conf->global->$constantforkey);
-		if (!empty($conf->global->$constantforkey) && $conf->global->$constantforkey > 0) array_push($paiementsModes, $obj);
+				if (!empty($conf->global->$constantforkey) && $conf->global->$constantforkey > 0) array_push($paiementsModes, $obj);
 	}
 }
 
@@ -795,12 +789,10 @@ $menus[$r++]=array('title'=>'<span class="fa fa-sign-out-alt paddingrightonly"><
 			<div class="wrapper" <?php if ($count == ($MAXCATEG - 2)) echo 'onclick="MoreCategories(\'less\');"'; elseif ($count == ($MAXCATEG - 1)) echo 'onclick="MoreCategories(\'more\');"'; else echo 'onclick="LoadProducts('.$count.');"'; ?> id="catdiv<?php echo $count; ?>">
 				<?php
 				if ($count == ($MAXCATEG - 2)) {
-				    //echo '<img class="imgwrapper" src="img/arrow-prev-top.png" height="100%" id="catimg'.$count.'" />';
-				    echo '<span class="fa fa-chevron-left centerinmiddle" style="font-size: 5em;"></span>';
+				  				    echo '<span class="fa fa-chevron-left centerinmiddle" style="font-size: 5em;"></span>';
 				}
 				elseif ($count == ($MAXCATEG - 1)) {
-				    //echo '<img class="imgwrapper" src="img/arrow-next-top.png" height="100%" id="catimg'.$count.'" />';
-				    echo '<span class="fa fa-chevron-right centerinmiddle" style="font-size: 5em;"></span>';
+				   				    echo '<span class="fa fa-chevron-right centerinmiddle" style="font-size: 5em;"></span>';
 				}
 				else
 				{
@@ -830,12 +822,10 @@ $menus[$r++]=array('title'=>'<span class="fa fa-sign-out-alt paddingrightonly"><
     			<div class="wrapper2" id='prodiv<?php echo $count; ?>' <?php if ($count == ($MAXPRODUCT - 2)) {?> onclick="MoreProducts('less');" <?php } if ($count == ($MAXPRODUCT - 1)) {?> onclick="MoreProducts('more');" <?php } else echo 'onclick="ClickProduct('.$count.');"'; ?>>
     				<?php
     				if ($count == ($MAXPRODUCT - 2)) {
-    				    //echo '<img class="imgwrapper" src="img/arrow-prev-top.png" height="100%" id="proimg'.$count.'" />';
-    				    echo '<span class="fa fa-chevron-left centerinmiddle" style="font-size: 5em;"></span>';
+    				       				    echo '<span class="fa fa-chevron-left centerinmiddle" style="font-size: 5em;"></span>';
     				}
     				elseif ($count == ($MAXPRODUCT - 1)) {
-    				    //echo '<img class="imgwrapper" src="img/arrow-next-top.png" height="100%" id="proimg'.$count.'" />';
-    				    echo '<span class="fa fa-chevron-right centerinmiddle" style="font-size: 5em;"></span>';
+    				        				    echo '<span class="fa fa-chevron-right centerinmiddle" style="font-size: 5em;"></span>';
     				}
     				else
     				{
