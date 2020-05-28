@@ -56,7 +56,9 @@ $projectid =            (GETPOST('projectid', 'int') ? GETPOST('projectid', 'int
 
 // Security check
 $socid = GETPOST("socid", "int");
-if ($user->socid) $socid=$user->socid;
+if ($user->socid){
+	$socid=$user->socid;
+}
 $result = restrictedArea($user, 'banque', '', '', '');
 
 $object = new PaymentVarious($db);
@@ -71,7 +73,9 @@ $hookmanager->initHooks(array('variouscard','globalcard'));
 
 $parameters=array();
 $reshook=$hookmanager->executeHooks('doActions', $parameters, $object, $action);    // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+if ($reshook < 0){
+	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+}
 
 if (empty($reshook))
 {
@@ -90,7 +94,9 @@ if (empty($reshook))
 			header("Location: ".$urltogo);
 			exit;
 		}
-		if ($id > 0 || !empty($ref)) $ret = $object->fetch($id, $ref);
+		if ($id > 0 || !empty($ref)) {
+			$ret = $object->fetch($id, $ref);
+		}
 		$action = '';
 	}
 
@@ -100,7 +106,9 @@ if (empty($reshook))
 
 		$datep = dol_mktime(12, 0, 0, GETPOST("datepmonth", 'int'), GETPOST("datepday", 'int'), GETPOST("datepyear", 'int'));
 		$datev = dol_mktime(12, 0, 0, GETPOST("datevmonth", 'int'), GETPOST("datevday", 'int'), GETPOST("datevyear", 'int'));
-		if (empty($datev)) $datev = $datep;
+		if (empty($datev)){
+			$datev = $datep;
+		}
 
 		$object->ref = ''; // TODO
 		$object->accountid = GETPOST("accountid", 'int') > 0 ? GETPOST("accountid", "int") : 0;
