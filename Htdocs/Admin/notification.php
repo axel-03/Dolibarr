@@ -33,10 +33,11 @@ require_once DOL_DOCUMENT_ROOT.'/core/triggers/interface_50_modNotification_Noti
 $langs->loadLangs(array('admin', 'other', 'orders', 'propal', 'bills', 'errors', 'mails'));
 
 // Security check
-if (!$user->admin)
+if (!$user->admin){
   accessforbidden();
 
 $action = GETPOST('action', 'aZ09');
+}
 
 
 /*
@@ -48,20 +49,19 @@ if ($action == 'setvalue' && $user->admin)
 	$db->begin();
 
 	$result = dolibarr_set_const($db, "NOTIFICATION_EMAIL_FROM", $_POST["email_from"], 'chaine', 0, '', $conf->entity);
-    if ($result < 0) $error++;
+    if ($result < 0) $error++;{ }
 
     if (!$error && is_array($_POST))
     {
-    	//var_dump($_POST);
 	    foreach ($_POST as $key => $val)
 	    {
-	    	if (!preg_match('/^NOTIF_(.*)_key$/', $key, $reg)) continue;
-
+	    	if (!preg_match('/^NOTIF_(.*)_key$/', $key, $reg)) continue;{
+		} 
 	    	$newval = '';
 	    	$newkey = '';
 
 	    	$shortkey = preg_replace('/_key$/', '', $key);
-    		//print $shortkey.'<br>';
+    		
 
 	    	if (preg_match('/^NOTIF_(.*)_old_(.*)_key/', $key, $reg))
 	    	{
@@ -69,7 +69,7 @@ if ($action == 'setvalue' && $user->admin)
 
 				$newkey = 'NOTIFICATION_FIXEDEMAIL_'.$reg[1].'_THRESHOLD_HIGHER_'.((int) GETPOST($shortkey.'_amount'));
 				$newval = GETPOST($shortkey.'_key');
-				//print $newkey.' - '.$newval.'<br>';
+				
 	    	}
 	    	elseif (preg_match('/^NOTIF_(.*)_new_key/', $key, $reg))
 	    	{
@@ -116,7 +116,9 @@ print load_fiche_titre($langs->trans("NotificationSetup"), $linkback, 'title_set
 print '<span class="opacitymedium">';
 print $langs->trans("NotificationsDesc").'<br>';
 print $langs->trans("NotificationsDescUser").'<br>';
-if (!empty($conf->societe->enabled)) print $langs->trans("NotificationsDescContact").'<br>';
+if (!empty($conf->societe->enabled)){
+	print $langs->trans("NotificationsDescContact").'<br>';
+}
 print $langs->trans("NotificationsDescGlobal").'<br>';
 print '</span>';
 print '<br>';
