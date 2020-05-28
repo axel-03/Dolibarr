@@ -26,7 +26,7 @@
 
 // Put here all includes required by your class file
 require_once DOL_DOCUMENT_ROOT.'/core/class/commonobject.class.php';
-//require_once DOL_DOCUMENT_ROOT . '/societe/class/societe.class.php';
+
 //require_once DOL_DOCUMENT_ROOT . '/product/class/product.class.php';
 
 /**
@@ -168,24 +168,23 @@ class SocieteAccount extends CommonObject
 	/**
 	 * @var int    Name of subtable line
 	 */
-	//public $table_element_line = 'societe_accountdet';
+	
 	/**
 	 * @var int    Field with ID of parent key if this field has a parent
 	 */
-	//public $fk_element = 'fk_societe_account';
+	
 	/**
 	 * @var int    Name of subtable class that manage subtable lines
 	 */
-	//public $class_element_line = 'societeAccountline';
+	
 	/**
      * @var array	List of child tables. To test if we can delete object.
 	 */
-	//protected $childtables=array();
+	
 	/**
 	 * @var societeAccountLine[]     Array of subtable lines
 	 */
-	//public $lines = array();
-
+	
 
 
 	/**
@@ -412,8 +411,7 @@ class SocieteAccount extends CommonObject
         $label = '<u>'.$langs->trans("SocieteAccount").'</u>';
         $label .= '<br>';
         $label .= '<b>'.$langs->trans('Login').':</b> '.$this->ref;
-        //$label.= '<b>' . $langs->trans('WebSite') . ':</b> ' . $this->ref;
-
+       
         $url = dol_buildpath('/website/websiteaccount_card.php', 1).'?id='.$this->id;
 
         if ($option != 'nolink')
