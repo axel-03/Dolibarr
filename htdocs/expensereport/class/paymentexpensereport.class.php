@@ -119,15 +119,33 @@ class PaymentExpenseReport extends CommonObject
 		}
 
 		// Clean parameters
-		if (isset($this->fk_expensereport)) $this->fk_expensereport=trim($this->fk_expensereport);
-		if (isset($this->amount))			$this->amount=trim($this->amount);
-		if (isset($this->fk_typepayment))	$this->fk_typepayment=trim($this->fk_typepayment);
-		if (isset($this->num_payment))		$this->num_payment=trim($this->num_payment);
-		if (isset($this->note))				$this->note=trim($this->note);
-		if (isset($this->note_public))		$this->note_public=trim($this->note_public);
-		if (isset($this->fk_bank))			$this->fk_bank=trim($this->fk_bank);
-		if (isset($this->fk_user_creat))	$this->fk_user_creat=trim($this->fk_user_creat);
-		if (isset($this->fk_user_modif))	$this->fk_user_modif=trim($this->fk_user_modif);
+		if (isset($this->fk_expensereport)){ 
+			$this->fk_expensereport=trim($this->fk_expensereport);
+		}
+		if (isset($this->amount)){
+			$this->amount=trim($this->amount);
+		}
+		if (isset($this->fk_typepayment)){
+			$this->fk_typepayment=trim($this->fk_typepayment);
+		}
+		if (isset($this->num_payment)){		
+			$this->num_payment=trim($this->num_payment);
+		}
+		if (isset($this->note)){
+			$this->note=trim($this->note);
+		}
+		if (isset($this->note_public)){
+			$this->note_public=trim($this->note_public);
+		}
+		if (isset($this->fk_bank)){
+			$this->fk_bank=trim($this->fk_bank);
+		}
+		if (isset($this->fk_user_creat)){
+			$this->fk_user_creat=trim($this->fk_user_creat);
+		}
+		if (isset($this->fk_user_modif)){
+			$this->fk_user_modif=trim($this->fk_user_modif);
+		}
 
         $totalamount = 0;
         foreach ($this->amounts as $key => $value)  // How payment is dispatch
@@ -139,8 +157,9 @@ class PaymentExpenseReport extends CommonObject
         $totalamount = price2num($totalamount);
 
         // Check parameters
-        if ($totalamount == 0) return -1; // On accepte les montants negatifs pour les rejets de prelevement mais pas null
-
+        if ($totalamount == 0){
+		return -1; 
+	}
 
 		$this->db->begin();
 
@@ -264,14 +283,30 @@ class PaymentExpenseReport extends CommonObject
 
 		// Clean parameters
 
-		if (isset($this->fk_expensereport)) $this->fk_expensereport=trim($this->fk_expensereport);
-		if (isset($this->amount))			$this->amount=trim($this->amount);
-		if (isset($this->fk_typepayment))	$this->fk_typepayment=trim($this->fk_typepayment);
-		if (isset($this->num_payment))		$this->num_payment=trim($this->num_payment);
-		if (isset($this->note))				$this->note=trim($this->note);
-		if (isset($this->fk_bank))			$this->fk_bank=trim($this->fk_bank);
-		if (isset($this->fk_user_creat))	$this->fk_user_creat=trim($this->fk_user_creat);
-		if (isset($this->fk_user_modif))	$this->fk_user_modif=trim($this->fk_user_modif);
+		if (isset($this->fk_expensereport)){ 
+			$this->fk_expensereport=trim($this->fk_expensereport);
+		}
+		if (isset($this->amount)){
+			$this->amount=trim($this->amount);
+		}
+		if (isset($this->fk_typepayment)){
+			$this->fk_typepayment=trim($this->fk_typepayment);
+		}
+		if (isset($this->num_payment)){
+			$this->num_payment=trim($this->num_payment);
+		}
+		if (isset($this->note)){
+			$this->note=trim($this->note);
+		}
+		if (isset($this->fk_bank)){
+			$this->fk_bank=trim($this->fk_bank);
+		}
+		if (isset($this->fk_user_creat)){
+			$this->fk_user_creat=trim($this->fk_user_creat);
+		}
+		if (isset($this->fk_user_modif)){
+			$this->fk_user_modif=trim($this->fk_user_modif);
+		}
 
 
 		// Check parameters
