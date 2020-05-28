@@ -356,7 +356,6 @@ class FormProduct
 
 		$return = '';
 
-		// TODO Use a cache
 		require_once DOL_DOCUMENT_ROOT.'/core/class/cunits.class.php';
 		$measuringUnits = new CUnits($db);
 
