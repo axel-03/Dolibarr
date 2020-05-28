@@ -257,7 +257,7 @@ function getSupplierInvoice($authentication, $id = '', $ref = '', $ref_ext = '')
 				$i=0;
 				foreach($invoice->lines as $line)
 				{
-					//var_dump($line); exit;
+					
 					$linesresp[]=array(
 						'id'=>$line->rowid,
 						'type'=>$line->product_type,
@@ -359,10 +359,7 @@ function getSupplierInvoicesForThirdParty($authentication, $idthirdparty)
 
 		$sql.='SELECT f.rowid as facid';
 		$sql.=' FROM '.MAIN_DB_PREFIX.'facture_fourn as f';
-		//$sql.=', '.MAIN_DB_PREFIX.'societe as s';
-		//$sql.= ' LEFT JOIN '.MAIN_DB_PREFIX.'product as p ON pt.fk_product = p.rowid';
-		//$sql.=" WHERE f.fk_soc = s.rowid AND nom = '".$db->escape($idthirdparty)."'";
-		//$sql.=" WHERE f.fk_soc = s.rowid AND nom = '".$db->escape($idthirdparty)."'";
+		
         $sql.=" WHERE f.entity = ".$conf->entity;
 		if ($idthirdparty != 'all') $sql.=" AND f.fk_soc = ".$db->escape($idthirdparty);
 
