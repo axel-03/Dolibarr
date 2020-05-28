@@ -81,7 +81,9 @@ class Odf
 
 		// Load zip proxy
 		$zipHandler = $this->config['ZIP_PROXY'];
-		if (!defined('PCLZIP_TEMPORARY_DIR')) define('PCLZIP_TEMPORARY_DIR',$this->tmpdir);
+		if (!defined('PCLZIP_TEMPORARY_DIR')){
+			define('PCLZIP_TEMPORARY_DIR',$this->tmpdir);
+		}
 		include_once('zip/'.$zipHandler.'.php');
 		if (! class_exists($this->config['ZIP_PROXY'])) {
 			throw new OdfException($this->config['ZIP_PROXY'] . ' class not found - check your php settings');
