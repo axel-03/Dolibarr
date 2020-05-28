@@ -85,7 +85,7 @@ $dol_hide_leftmenu = $conf->dol_hide_leftmenu;
 $dol_optimize_smallscreen = $conf->dol_optimize_smallscreen;
 $dol_no_mouse_hover = $conf->dol_no_mouse_hover;
 
-//$conf->global->THEME_ELDY_ENABLE_PERSONALIZED=0;
+
 //$user->conf->THEME_ELDY_ENABLE_PERSONALIZED=0;
 //var_dump($user->conf->THEME_ELDY_RGB);
 
