@@ -24,7 +24,7 @@
 
 // Put here all includes required by your class file
 require_once DOL_DOCUMENT_ROOT . '/core/class/commonobject.class.php';
-//require_once DOL_DOCUMENT_ROOT . '/societe/class/societe.class.php';
+
 //require_once DOL_DOCUMENT_ROOT . '/product/class/product.class.php';
 
 /**
@@ -198,23 +198,23 @@ class CompanyPaymentMode extends CommonObject
 	/**
 	 * @var int    Name of subtable line
 	 */
-	//public $table_element_line = 'companypaymentmodedet';
+
 	/**
 	 * @var int    Field with ID of parent key if this field has a parent
 	 */
-	//public $fk_element = 'fk_companypaymentmode';
+
 	/**
 	 * @var int    Name of subtable class that manage subtable lines
 	 */
-	//public $class_element_line = 'CompanyPaymentModeline';
+
 	/**
      * @var array	List of child tables. To test if we can delete object.
 	 */
-	//protected $childtables=array();
+
 	/**
 	 * @var CompanyPaymentModeLine[]     Array of subtable lines
 	 */
-	//public $lines = array();
+	
 
 
 
@@ -229,8 +229,12 @@ class CompanyPaymentMode extends CommonObject
 
 		$this->db = $db;
 
-		if (empty($conf->global->MAIN_SHOW_TECHNICAL_ID) && isset($this->fields['rowid'])) $this->fields['rowid']['visible']=0;
-		if (empty($conf->multicompany->enabled) && isset($this->fields['entity'])) $this->fields['entity']['enabled']=0;
+		if (empty($conf->global->MAIN_SHOW_TECHNICAL_ID) && isset($this->fields['rowid'])){
+			$this->fields['rowid']['visible']=0;
+		}
+		if (empty($conf->multicompany->enabled) && isset($this->fields['entity'])) {
+			$this->fields['entity']['enabled']=0;
+		}
 	}
 
 	/**
@@ -310,11 +314,15 @@ class CompanyPaymentMode extends CommonObject
 	 */
 	public function fetch($id, $ref = null, $socid = 0, $type = '', $morewhere = '')
 	{
-		if ($socid) $morewhere.= " AND fk_soc  = ".$this->db->escape($socid)." AND default_rib = 1";
-		if ($type)  $morewhere.= " AND type = '".$this->db->escape($type)."'";
+		if ($socid){
+			$morewhere.= " AND fk_soc  = ".$this->db->escape($socid)." AND default_rib = 1";
+		}
+		if ($type){
+			$morewhere.= " AND type = '".$this->db->escape($type)."'";
+		}
 
 		$result = $this->fetchCommon($id, $ref, $morewhere);
-		//if ($result > 0 && ! empty($this->table_element_line)) $this->fetchLines();
+		
 		return $result;
 	}
 
