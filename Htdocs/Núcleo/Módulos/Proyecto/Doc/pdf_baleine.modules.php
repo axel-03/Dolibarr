@@ -144,8 +144,9 @@ class pdf_baleine extends ModelePDFProjects
 
 		// Get source company
 		$this->emetteur=$mysoc;
-		if (! $this->emetteur->country_code) $this->emetteur->country_code=substr($langs->defaultlang, -2);    // By default if not defined
-
+		if (! $this->emetteur->country_code){
+			$this->emetteur->country_code=substr($langs->defaultlang, -2);    // By default if not defined
+		}
 		// Define position of columns
 		$this->posxref=$this->marge_gauche+1;
 		$this->posxlabel=$this->marge_gauche+25;
@@ -178,10 +179,13 @@ class pdf_baleine extends ModelePDFProjects
         // phpcs:enable
 		global $conf, $hookmanager, $langs, $user;
 
-		if (! is_object($outputlangs)) $outputlangs=$langs;
+		if (! is_object($outputlangs)){
+			$outputlangs=$langs;
+		}
 		// For backward compatibility with FPDF, force output charset to ISO, because FPDF expect text to be encoded in ISO
-		if (! empty($conf->global->MAIN_USE_FPDF)) $outputlangs->charset_output='ISO-8859-1';
-
+		if (! empty($conf->global->MAIN_USE_FPDF)){
+			$outputlangs->charset_output='ISO-8859-1';
+		}
 		// Load traductions files required by page
 		$outputlangs->loadLangs(array("main", "dict", "companies", "projects"));
 
@@ -191,8 +195,10 @@ class pdf_baleine extends ModelePDFProjects
 
 			$objectref = dol_sanitizeFileName($object->ref);
 			$dir = $conf->projet->dir_output;
-			if (! preg_match('/specimen/i', $objectref)) $dir.= "/" . $objectref;
+			if (! preg_match('/specimen/i', $objectref)){
+				$dir.= "/" . $objectref;
 			$file = $dir . "/" . $objectref . ".pdf";
+			}
 
 			if (! file_exists($dir))
 			{
@@ -214,7 +220,6 @@ class pdf_baleine extends ModelePDFProjects
 				$hookmanager->initHooks(array('pdfgeneration'));
 				$parameters=array('file'=>$file,'object'=>$object,'outputlangs'=>$outputlangs);
 				global $action;
-				$reshook=$hookmanager->executeHooks('beforePDFCreation', $parameters, $object, $action);    // Note that $action and $object may have been modified by some hooks
 
 				// Create pdf instance
 				$pdf=pdf_getInstance($this->format);
@@ -224,7 +229,9 @@ class pdf_baleine extends ModelePDFProjects
 				$heightforinfotot = 40;	// Height reserved to output the info and total part
 		        $heightforfreetext= (isset($conf->global->MAIN_PDF_FREETEXT_HEIGHT)?$conf->global->MAIN_PDF_FREETEXT_HEIGHT:5);	// Height reserved to output the free text on last page
 	            $heightforfooter = $this->marge_basse + 8;	// Height reserved to output the footer (value include bottom margin)
-	            if ($conf->global->MAIN_GENERATE_DOCUMENTS_SHOW_FOOT_DETAILS >0) $heightforfooter+= 6;
+	            if ($conf->global->MAIN_GENERATE_DOCUMENTS_SHOW_FOOT_DETAILS >0){
+			    $heightforfooter+= 6;
+		    }
 
                 if (class_exists('TCPDF'))
                 {
@@ -235,7 +242,7 @@ class pdf_baleine extends ModelePDFProjects
                 // Set path to the background PDF File
                 if (! empty($conf->global->MAIN_ADD_PDF_BACKGROUND))
                 {
-                    $pagecount = $pdf->setSourceFile($conf->mycompany->dir_output.'/'.$conf->global->MAIN_ADD_PDF_BACKGROUND);
+                   
                     $tplidx = $pdf->importPage(1);
                 }
 
