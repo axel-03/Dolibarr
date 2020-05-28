@@ -114,7 +114,7 @@ if ($resql)
         $row = $db->fetch_row($resql);
         if ($row)
         {
-            //if ($row[1]!=-1 && ($row[1]!=3 || $row[2]!=1))
+           
             {
                 if (! isset($vals[$row[1]])) $vals[$row[1]]=0;
                 $vals[$row[1].$bool]+=$row[0];
@@ -254,7 +254,7 @@ $sql .= " ".MAIN_DB_PREFIX."societe as s";
 if (!$user->rights->societe->client->voir && !$socid) $sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 $sql .= " WHERE c.fk_soc = s.rowid";
 $sql .= " AND c.entity IN (".getEntity('commande').")";
-//$sql.= " AND c.fk_statut > 2";
+
 if ($socid) $sql .= " AND c.fk_soc = ".$socid;
 if (!$user->rights->societe->client->voir && !$socid) $sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = ".$user->id;
 $sql .= " ORDER BY c.tms DESC";
